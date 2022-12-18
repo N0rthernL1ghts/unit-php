@@ -31,8 +31,6 @@ RUN set -eux \
     && make -j "$(nproc)" install \
     && make clean
 
-#     && make -j "$(nproc)" php-install \
-
 ################################################
 # Root FS builder / docker overlay - Stage #3  #
 ################################################
