@@ -15,7 +15,7 @@ RUN tar zxvf /tmp/unit.tar.gz --strip=1 -C "/tmp/unit"
 ################################################
 # NGINX UNIT BUILDER - Stage #2                #
 ################################################
-FROM php:8.1-zts-alpine3.17 AS nginx-unit-builder
+FROM php:8.2-zts-alpine3.17 AS nginx-unit-builder
 
 RUN set -eux \
     && apk add --update --no-cache alpine-sdk curl openssl-dev pcre-dev
@@ -47,7 +47,7 @@ COPY ["./rootfs", "/"]
 ################################################
 # Final stage                                  #
 ################################################
-FROM php:8.1-zts-alpine3.17
+FROM php:8.2-zts-alpine3.17
 
 RUN apk add --update --no-cache pcre-dev
 
