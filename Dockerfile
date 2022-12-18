@@ -26,7 +26,7 @@ WORKDIR "/build/unit/"
 
 RUN set -eux \
     && ./configure --log=/var/log/unitd.log \
-    && ./configure php --module=php81 \
+    && ./configure php --module=php82 \
     && make -j "$(nproc)" \
     && make -j "$(nproc)" install \
     && make clean
