@@ -1,5 +1,5 @@
 ARG UNIT_VERSION=1.29.0
-ARG PHP_VERSION=8.1
+ARG PHP_VERSION=8.2
 ARG PHP_ALPINE_VERSION=3.17
 
 ################################################
