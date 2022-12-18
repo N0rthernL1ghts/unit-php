@@ -1,5 +1,6 @@
 ARG UNIT_VERSION=1.29.0
 ARG PHP_VERSION=8.1
+ARG PHP_ALPINE_VERSION=3.17
 
 ################################################
 # NGINX UNIT DOWNLOADER - Stage #1             #
@@ -17,7 +18,8 @@ RUN tar zxvf /tmp/unit.tar.gz --strip=1 -C "/tmp/unit"
 # NGINX UNIT BUILDER - Stage #2                #
 ################################################
 ARG PHP_VERSION
-FROM php:${PHP_VERSION}-zts-alpine3.17 AS nginx-unit-builder
+ARG PHP_ALPINE_VERSION
+FROM php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION} AS nginx-unit-builder
 
 RUN set -eux \
     && apk add --update --no-cache alpine-sdk curl openssl-dev pcre-dev
@@ -51,7 +53,8 @@ COPY ["./rootfs", "/"]
 # Final stage                                  #
 ################################################
 ARG PHP_VERSION
-FROM php:${PHP_VERSION}-zts-alpine3.17
+ARG PHP_ALPINE_VERSION
+FROM php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION}
 
 RUN apk add --update --no-cache pcre-dev
 
