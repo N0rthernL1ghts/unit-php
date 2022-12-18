@@ -56,10 +56,8 @@ ARG PHP_VERSION
 ARG PHP_ALPINE_VERSION
 FROM php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION}
 
-RUN apk add --update --no-cache pcre-dev
-
 RUN set -eux \
-    && apk add --update --no-cache socat \
+    && apk add --update --no-cache pcre-dev socat \
     && ln -sf /opt/unit/sbin/unitd /sbin/unitd \
     && mkdir /var/lib/unit/state/certs -p
 
