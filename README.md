@@ -12,7 +12,7 @@ Currently under active maintenance, so to be considered as unstable.
 #### How to use
 On container startup, unit is launched and then config.json is sent to the service.  
 <br></br>
-Bundled config is suitable for running simple Laravel application in `/app`. Keep in mind persistent directories, if any.
+[Bundled config](rootfs/etc/unit/config.json) is suitable for running simple Laravel application in `/app`. Keep in mind persistent directories, if any.
 ```shell
 docker run -it \
   -v "/path/to/your/laravel_app:/app" \
