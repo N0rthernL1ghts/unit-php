@@ -69,7 +69,7 @@ RUN set -eux \
 
 #### Supervisor
 This image comes bundled with [just-containers/s6-overlay](https://github.com/just-containers/s6-overlay) from build [nlss/s6-rootfs](https://github.com/N0rthernL1ghts/s6-rootfs).
-To control supervisor behavior, you can use [it's environment variables](https://github.com/N0rthernL1ghts/s6-rootfs).
+To control supervisor behavior, you can use [it's environment variables](https://github.com/just-containers/s6-overlay#customizing-s6-behaviour).
 <br></br>
 
 Do NOT attempt starting with docker built-in supervisor (Tini [--init]). S6 must run as PID 1.
