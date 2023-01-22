@@ -42,7 +42,7 @@ RUN set -eux \
 FROM scratch AS rootfs
 
 COPY --from=nginx-unit-builder ["/opt/unit/", "/opt/unit/"]
-COPY --from=nlss/s6-rootfs ["/", "/"]
+COPY --from=nlss/s6-rootfs:2.2 ["/", "/"]
 
 # Rootfs
 COPY ["./rootfs", "/"]
@@ -69,7 +69,5 @@ ENV UNIT_VERSION=${UNIT_VERSION}
 ENV UNIT_SOCKET="/run/control.unit.sock"
 ENV UNIT_CONFIGURATION_FILE="/etc/unit/config.json"
 ENV S6_KEEP_ENV=1
-ENV S6_VERBOSITY=5
-ENV S6_CMD_RECEIVE_SIGNALS=1
 
 ENTRYPOINT ["/init"]
