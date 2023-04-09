@@ -74,7 +74,7 @@ target "1_29_0_PHP81" {
   inherits   = ["build-dockerfile", "build-platforms", "build-common"]
   cache-from = get-cache-from("1.29.0-PHP8.1")
   cache-to   = get-cache-to("1.29.0-PHP8.1")
-  tags       = get-tags("1.29.0-PHP8.1")
+  tags       = get-tags("1.29.0-PHP8.1", [])
   args       = get-args("1.29.0", "8.1")
 }
 
