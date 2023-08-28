@@ -6,6 +6,13 @@ Ready-to-use images:
 ghcr.io/n0rthernl1ghts/unit-php
 ```
 
+Supported PHP versions:
+- PHP7.4
+- PHP8.1
+- PHP8.2
+
+Check the [package](https://github.com/N0rthernL1ghts/unit-php/pkgs/container/unit-php) for available tags.
+
 Currently under active maintenance, so to be considered as unstable.
 
 
