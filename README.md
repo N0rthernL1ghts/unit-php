@@ -3,7 +3,7 @@ Alpine based Docker image for nginx-unit with PHP module
 
 Ready-to-use images:
 ```shell
-nlss/unit-php
+ghcr.io/n0rthernl1ghts/unit-php
 ```
 
 Currently under active maintenance, so to be considered as unstable.
@@ -16,7 +16,7 @@ On container startup, unit is launched and then config.json is sent to the servi
 ```shell
 docker run -it \
   -v "/path/to/your/laravel_app:/app" \
-  nlss/unit-php
+  ghcr.io/n0rthernl1ghts/unit-php
 ```
 
 And here's how to run with your own config:
@@ -24,7 +24,7 @@ And here's how to run with your own config:
 docker run -it \
   -v "/path/to/your/unit_config.json:/etc/unit/config.json" \
   -v "/path/to/your/web_app:/app" \
-  nlss/unit-php
+  ghcr.io/n0rthernl1ghts/unit-php
 ```
 
 You can also override path to unit configuration file with `UNIT_CONFIGURATION_FILE` environment variable:
@@ -32,7 +32,7 @@ You can also override path to unit configuration file with `UNIT_CONFIGURATION_F
 docker run -it \
   -e "UNIT_CONFIGURATION_FILE=/app/config/unit.json" \
   -v "/path/to/your/web_app:/app" \
-  nlss/unit-php
+  ghcr.io/n0rthernl1ghts/unit-php
 ```
 
 ###### Extending the image
@@ -48,7 +48,7 @@ COPY ["./unit.json", "/etc/unit/config.json"]
 
 
 # Main stage
-FROM nlss/unit-php
+FROM ghcr.io/n0rthernl1ghts/unit-php
 
 # Copy prepared root filesystem (single layer)
 COPY --from=rootfs ["/", "/"]
@@ -68,7 +68,7 @@ RUN set -eux \
 
 
 #### Supervisor
-This image comes bundled with [just-containers/s6-overlay](https://github.com/just-containers/s6-overlay) from build [nlss/s6-rootfs](https://github.com/N0rthernL1ghts/s6-rootfs).
+This image comes bundled with [just-containers/s6-overlay](https://github.com/just-containers/s6-overlay) from build [ghcr.io/n0rthernl1ghts/s6-rootfs](https://github.com/N0rthernL1ghts/s6-rootfs).
 To control supervisor behavior, you can use [it's environment variables](https://github.com/just-containers/s6-overlay#customizing-s6-behaviour).
 <br></br>
 
