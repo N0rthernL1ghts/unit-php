@@ -31,10 +31,11 @@ variable "REGISTRY_CACHE" {
 
 # Get the arguments for the build
 function "get-args" {
-  params = [unit_version, php_version]
+  params = [unit_version, php_version, alpine_version]
   result = {
     UNIT_VERSION = unit_version
     PHP_VERSION = php_version
+    PHP_ALPINE_VERSION =  notequal(alpine_version, "") ? alpine_version : "3.17"
   }
 }
 
@@ -82,7 +83,7 @@ target "1_29_0_PHP81" {
   cache-from = get-cache-from("1.29.0-PHP8.1")
   cache-to   = get-cache-to("1.29.0-PHP8.1")
   tags       = get-tags("1.29.0-PHP8.1", [])
-  args       = get-args("1.29.0", "8.1")
+  args       = get-args("1.29.0", "8.1", "")
 }
 
 target "1_29_0_PHP82" {
@@ -90,7 +91,7 @@ target "1_29_0_PHP82" {
   cache-from = get-cache-from("1.29.0-PHP8.2")
   cache-to   = get-cache-to("1.29.0-PHP8.2")
   tags       = get-tags("1.29.0-PHP8.2", ["1.29.0"])
-  args       = get-args("1.29.0", "8.2")
+  args       = get-args("1.29.0", "8.2", "")
 }
 
 target "1_29_1_PHP81" {
@@ -98,7 +99,7 @@ target "1_29_1_PHP81" {
   cache-from = get-cache-from("1.29.1-PHP8.1")
   cache-to   = get-cache-to("1.29.1-PHP8.1")
   tags       = get-tags("1.29.1-PHP8.1", ["1.29-PHP8.1"])
-  args       = get-args("1.29.1", "8.1")
+  args       = get-args("1.29.1", "8.1", "")
 }
 
 target "1_29_1_PHP82" {
@@ -106,7 +107,7 @@ target "1_29_1_PHP82" {
   cache-from = get-cache-from("1.29.1-PHP8.2")
   cache-to   = get-cache-to("1.29.1-PHP8.2")
   tags       = get-tags("1.29.1-PHP8.2", ["1.29-PHP8.2", "1.29", "1.29.1"])
-  args       = get-args("1.29.1", "8.2")
+  args       = get-args("1.29.1", "8.2", "")
 }
 
 target "1_30_0_PHP81" {
@@ -114,7 +115,7 @@ target "1_30_0_PHP81" {
   cache-from = get-cache-from("1.30.0-PHP8.1")
   cache-to   = get-cache-to("1.30.0-PHP8.1")
   tags       = get-tags("1.30.0-PHP8.1", [])
-  args       = get-args("1.30.0", "8.1")
+  args       = get-args("1.30.0", "8.1", "")
 }
 
 target "1_30_0_PHP82" {
@@ -122,5 +123,5 @@ target "1_30_0_PHP82" {
   cache-from = get-cache-from("1.30.0-PHP8.2")
   cache-to   = get-cache-to("1.30.0-PHP8.2")
   tags       = get-tags("1.30.0-PHP8.2", ["1.30-PHP8.2", "1.30", "1.30.0","latest"])
-  args       = get-args("1.30.0", "8.2")
+  args       = get-args("1.30.0", "8.2", "")
 }
