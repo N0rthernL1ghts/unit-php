@@ -42,7 +42,7 @@ RUN set -eux \
 FROM scratch AS rootfs
 
 COPY --from=nginx-unit-builder ["/opt/unit/", "/opt/unit/"]
-COPY --from=nlss/s6-rootfs:2.2 ["/", "/"]
+COPY --from=ghcr.io/n0rthernl1ghts/s6-rootfs:2.2 ["/", "/"]
 
 # Rootfs
 COPY ["./rootfs", "/"]
