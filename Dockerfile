@@ -72,4 +72,10 @@ ENV S6_KEEP_ENV=1
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 ENV S6_SERVICES_GRACETIME=6000
 
+LABEL maintainer="Aleksandar Puharic <aleksandar@puharic.com>" \
+      org.opencontainers.image.source="https://github.com/N0rthernL1ghts/unit-php" \
+      org.opencontainers.image.description="NGINX Unit ${UNIT_VERSION} - Alpine Build ${TARGETPLATFORM}" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.version="${UNIT_VERSION}"
+
 ENTRYPOINT ["/init"]
