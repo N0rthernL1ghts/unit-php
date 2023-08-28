@@ -1,5 +1,12 @@
 group "default" {
-  targets = ["1_29_0_PHP81", "1_29_0_PHP82", "1_29_1_PHP81", "1_29_1_PHP82"]
+  targets = [
+    "1_29_0_PHP81", 
+    "1_29_0_PHP82", 
+    "1_29_1_PHP81", 
+    "1_29_1_PHP82",
+    "1_30_0_PHP81",
+    "1_30_0_PHP82"
+  ]
 }
 
 target "build-dockerfile" {
@@ -98,6 +105,22 @@ target "1_29_1_PHP82" {
   inherits   = ["build-dockerfile", "build-platforms", "build-common"]
   cache-from = get-cache-from("1.29.1-PHP8.2")
   cache-to   = get-cache-to("1.29.1-PHP8.2")
-  tags       = get-tags("1.29.1-PHP8.2", ["1.29-PHP8.2", "1.29", "1.29.1", "latest"])
+  tags       = get-tags("1.29.1-PHP8.2", ["1.29-PHP8.2", "1.29", "1.29.1"])
   args       = get-args("1.29.1", "8.2")
+}
+
+target "1_30_0_PHP81" {
+  inherits   = ["build-dockerfile", "build-platforms", "build-common"]
+  cache-from = get-cache-from("1.30.0-PHP8.1")
+  cache-to   = get-cache-to("1.30.0-PHP8.1")
+  tags       = get-tags("1.30.0-PHP8.1", [])
+  args       = get-args("1.30.0", "8.1")
+}
+
+target "1_30_0_PHP82" {
+  inherits   = ["build-dockerfile", "build-platforms", "build-common"]
+  cache-from = get-cache-from("1.30.0-PHP8.2")
+  cache-to   = get-cache-to("1.30.0-PHP8.2")
+  tags       = get-tags("1.30.0-PHP8.2", ["1.30-PHP8.2", "1.30", "1.30.0","latest"])
+  args       = get-args("1.30.0", "8.2")
 }
