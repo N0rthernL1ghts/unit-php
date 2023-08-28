@@ -3,6 +3,10 @@ name: Build nginx unit php image
 on:
   push:
     branches: master
+    paths-ignore:
+      - '**.gitignore'
+      - '**.md'
+      - '**/**.md'
 
 jobs:
   build:
