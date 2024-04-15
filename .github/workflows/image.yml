@@ -40,7 +40,7 @@ jobs:
           password: ${{secrets.PAT_TOKEN}}
       -
         name: Build and push
-        uses: docker/bake-action@v3.1.0
+        uses: docker/bake-action@v4.3.0
         with:
           files: build/docker-bake.hcl
           push: true
