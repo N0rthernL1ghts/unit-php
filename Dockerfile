@@ -1,11 +1,11 @@
 ARG UNIT_VERSION=1.29.0
 ARG PHP_VERSION=8.2
-ARG PHP_ALPINE_VERSION=3.19.1
+ARG PHP_ALPINE_VERSION=3.19
 
 ################################################
 # NGINX UNIT DOWNLOADER - Stage #1             #
 ################################################
-FROM --platform=${TARGETPLATFORM} alpine:3.19.1 AS nginx-unit-downloader
+FROM --platform=${TARGETPLATFORM} alpine:3.19 AS nginx-unit-downloader
 
 ARG UNIT_VERSION
 WORKDIR "/tmp/unit"

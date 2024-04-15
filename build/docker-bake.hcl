@@ -46,7 +46,7 @@ function "get-args" {
   result = {
     UNIT_VERSION = unit_version
     PHP_VERSION = php_version
-    PHP_ALPINE_VERSION =  notequal(alpine_version, "") ? alpine_version : "3.17"
+    PHP_ALPINE_VERSION =  notequal(alpine_version, "") ? alpine_version : "3.19"
   }
 }
 
