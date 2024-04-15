@@ -1,3 +1,9 @@
 #!/usr/bin/env sh
 
-exec /opt/unit/sbin/unitd --no-daemon --tmp "/tmp" --state "/var/lib/unit/state" --modules "/opt/unit/modules" --control "unix:${UNIT_SOCKET}"
+# This is for legacy support for versions prior to 1.30.0
+if [ -d "/opt/unit" ] && [ -x "/opt/unit/sbin/unitd" ]; then
+    exec "/opt/unit/sbin/unitd" --no-daemon --tmp "/tmp" --state "/var/lib/unit/state" --modules "/opt/unit/modules" --control "unix:${UNIT_SOCKET}"
+    exit
+fi
+
+exec "/usr/local/sbin/unitd" --no-daemon --control "unix:${UNIT_SOCKET}"

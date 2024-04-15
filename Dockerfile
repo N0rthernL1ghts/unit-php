@@ -39,13 +39,20 @@ RUN set -eux \
 ################################################
 # Root FS builder / docker overlay - Stage #3  #
 ################################################
-FROM scratch AS rootfs
+FROM alpine:3.19 AS rootfs
 
 COPY --from=nginx-unit-builder ["/opt/unit/", "/opt/unit/"]
-COPY --from=ghcr.io/n0rthernl1ghts/s6-rootfs:2.2 ["/", "/"]
+COPY --from=ghcr.io/n0rthernl1ghts/s6-rootfs:2.2 ["/", "/rootfs-build"]
 
 # Rootfs
-COPY ["./rootfs", "/"]
+COPY ["./rootfs", "/rootfs-build"]
+
+# Prepare unit
+COPY --chmod=0775 ["./src/setup-unit.sh", "/tmp/setup-unit.sh"]
+
+RUN set -eux \
+    && apk add --update --no-cache bash rsync \
+    && /tmp/setup-unit.sh
 
 
 
@@ -57,11 +64,9 @@ ARG PHP_ALPINE_VERSION
 FROM --platform=${TARGETPLATFORM} php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION}
 
 RUN set -eux \
-    && apk add --update --no-cache pcre-dev socat \
-    && ln -sf /opt/unit/sbin/unitd /sbin/unitd \
-    && mkdir /var/lib/unit/state/certs -p
+    && apk add --update --no-cache pcre-dev socat
 
-COPY --from=rootfs ["/", "/"]
+COPY --from=rootfs ["/rootfs-build/", "/"]
 
 
 ARG UNIT_VERSION
