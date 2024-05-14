@@ -76,6 +76,8 @@ ENV UNIT_CONFIGURATION_FILE="/etc/unit/config.json"
 ENV S6_KEEP_ENV=1
 ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 ENV S6_SERVICES_GRACETIME=6000
+ENV S6_VERBOSITY=5
+ENV S6_CMD_RECEIVE_SIGNALS=1
 
 LABEL maintainer="Aleksandar Puharic <aleksandar@puharic.com>" \
       org.opencontainers.image.source="https://github.com/N0rthernL1ghts/unit-php" \
