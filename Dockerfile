@@ -42,7 +42,7 @@ RUN set -eux \
 FROM alpine:3.19 AS rootfs
 
 COPY --from=nginx-unit-builder ["/opt/unit/", "/opt/unit/"]
-COPY --from=ghcr.io/n0rthernl1ghts/s6-rootfs:2.2 ["/", "/rootfs-build"]
+COPY --from=ghcr.io/n0rthernl1ghts/s6-rootfs:3.1.6.2 ["/", "/rootfs-build"]
 
 # Rootfs
 COPY ["./rootfs", "/rootfs-build"]

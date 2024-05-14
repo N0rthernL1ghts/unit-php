@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+# unitd main
+main() {
+    # This will prepend service name to all output from here
+    exec > >(while read line; do echo "[unitd] ${line}"; done) 2>&1
+
+    # This is for legacy support for versions prior to 1.30.0
+    if [ -d "/opt/unit" ] && [ -x "/opt/unit/sbin/unitd" ]; then
+        /opt/unit/sbin/unitd --no-daemon --tmp "/tmp" --state "/var/lib/unit/state" --modules "/opt/unit/modules" --control "unix:${UNIT_SOCKET}"
+        return
+    fi
+
+    /usr/local/sbin/unitd --no-daemon --control "unix:${UNIT_SOCKET}"
+}
+
+main
