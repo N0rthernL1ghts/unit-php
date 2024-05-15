@@ -64,7 +64,7 @@ ARG PHP_ALPINE_VERSION
 FROM --platform=${TARGETPLATFORM} php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION}
 
 RUN set -eux \
-    && apk add --update --no-cache pcre-dev socat
+    && apk add --update --no-cache bash pcre-dev socat
 
 COPY --from=rootfs ["/rootfs-build/", "/"]
 
