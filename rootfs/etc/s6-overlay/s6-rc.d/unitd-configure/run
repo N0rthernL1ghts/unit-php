@@ -4,7 +4,7 @@
 # unitd-configure main
 main() {
     # This will prepend service name to all output from here
-    exec > >(while read line; do echo "[unitd] ${line}"; done) 2>&1
+    exec > >(while read line; do echo "[unitd-configure] ${line}"; done) 2>&1
 
     local unitConfigurationFile="${UNIT_CONFIGURATION_FILE:?}"
     local unitSocket="${UNIT_SOCKET:?}"
