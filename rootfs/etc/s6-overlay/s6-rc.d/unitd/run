@@ -7,17 +7,14 @@ main() {
     exec > >(while read line; do echo "[unitd] ${line}"; done) 2>&1
 
     local unitSocket="${UNIT_SOCKET:?}"
-    
-    echo "> Start"
 
     # This is for legacy support for versions prior to 1.30.0
     if [ -d "/opt/unit" ] && [ -x "/opt/unit/sbin/unitd" ]; then
-        echo "> Legacy"
+        echo "Legacy Unit installation detected, starting Unit from /opt/unit"
         /opt/unit/sbin/unitd --no-daemon --tmp "/tmp" --state "/var/lib/unit/state" --modules "/opt/unit/modules" --control "unix:${unitSocket}"
         return
     fi
 
-    echo "> Current"
     /usr/local/sbin/unitd --no-daemon --control "unix:${unitSocket}"
 }
 
