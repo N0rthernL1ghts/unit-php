@@ -5,7 +5,7 @@ ARG PHP_ALPINE_VERSION=3.19
 ################################################
 # NGINX UNIT DOWNLOADER - Stage #1             #
 ################################################
-FROM --platform=${TARGETPLATFORM} alpine:3.19 AS nginx-unit-downloader
+FROM --platform=${TARGETPLATFORM} alpine:3.20 AS nginx-unit-downloader
 
 ARG UNIT_VERSION
 WORKDIR "/tmp/unit"
@@ -39,7 +39,7 @@ RUN set -eux \
 ################################################
 # Root FS builder / docker overlay - Stage #3  #
 ################################################
-FROM alpine:3.19 AS rootfs
+FROM alpine:3.20 AS rootfs
 
 COPY --from=nginx-unit-builder ["/opt/unit/", "/opt/unit/"]
 COPY --from=ghcr.io/n0rthernl1ghts/s6-rootfs:3.1.6.2 ["/", "/rootfs-build"]
