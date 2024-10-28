@@ -5,7 +5,7 @@ ARG PHP_ALPINE_VERSION=3.19
 ################################################
 # NGINX UNIT DOWNLOADER - Stage #1             #
 ################################################
-FROM --platform=${TARGETPLATFORM} alpine:3.19 AS nginx-unit-downloader
+FROM alpine:3.19 AS nginx-unit-downloader
 
 ARG UNIT_VERSION
 WORKDIR "/tmp/unit"
@@ -19,7 +19,7 @@ RUN tar zxvf /tmp/unit.tar.gz --strip=1 -C "/tmp/unit"
 ################################################
 ARG PHP_VERSION
 ARG PHP_ALPINE_VERSION
-FROM --platform=${TARGETPLATFORM} php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION} AS nginx-unit-builder
+FROM php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION} AS nginx-unit-builder
 
 RUN set -eux \
     && apk add --update --no-cache alpine-sdk curl openssl-dev pcre-dev
@@ -61,7 +61,7 @@ RUN set -eux \
 ################################################
 ARG PHP_VERSION
 ARG PHP_ALPINE_VERSION
-FROM --platform=${TARGETPLATFORM} php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION}
+FROM php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION}
 
 RUN set -eux \
     && apk add --update --no-cache bash pcre-dev socat
