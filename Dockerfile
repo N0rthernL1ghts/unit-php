@@ -54,6 +54,9 @@ RUN set -eux \
     && apk add --update --no-cache bash rsync \
     && /tmp/setup-unit.sh
 
+# Download init-docker-secrets service script from gist
+ADD --chmod=0777 ["https://gist.githubusercontent.com/xZero707/bd8dd4795b8266d9639ed0cdd9d81f82/raw/13d3134880a2ce16c00b9b33450c05c34d0e0619/run.sh", "/etc/s6-overlay/s6-rc.d/init-docker-secrets/run"]
+
 
 
 ################################################
