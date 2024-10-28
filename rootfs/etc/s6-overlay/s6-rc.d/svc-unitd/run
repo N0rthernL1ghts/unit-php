@@ -4,7 +4,7 @@
 # svc-unitd main
 main() {
     # This will prepend service name to all output from here
-    exec > >(while read line; do echo "[unitd] ${line}"; done) 2>&1
+    exec > >(while read line; do echo "[svc-unitd] ${line}"; done) 2>&1
 
     local unitSocket="${UNIT_SOCKET:?}"
 
