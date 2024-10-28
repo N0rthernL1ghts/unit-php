@@ -5,6 +5,7 @@ Ready-to-use images:
 ```shell
 ghcr.io/n0rthernl1ghts/unit-php
 ```
+**Warning:** Docker Hub images are deprecated and no longer maintained due to their hostility towards open-source community.
 
 Supported PHP versions:
 - PHP7.4
