@@ -13,7 +13,7 @@ main() {
     if [ ! -f "${unitConfigurationFile}" ]; then
         echo "Error: Configuration file '${unitConfigurationFile}' not found"
         sleep 5
-        exit 1
+        return 1
     fi
 
     echo "Unit configuration"
