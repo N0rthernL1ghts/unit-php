@@ -73,6 +73,26 @@ RUN set -eux \
     && rm /tmp/* -rf
 ```
 
+#### Docker Secrets
+You can use Docker secrets to pass sensitive data to the container.
+Secrets are natively mounted in `/run/secrets` directory, but internal service will normalize them.
+
+Eg. `/run/secrets/db_password` will be normalized to `/run/secrets_normalized/DB_PASSWORD` and passed as `DB_PASSWORD` environment variable to the service.  
+
+For security reasons, secrets are not available in global environment, but only in the service's environment.
+
+Example using docker-compose.yml
+```yaml
+secrets:
+  db_password:
+    file: ./secrets/db_password
+    
+services:
+  app:
+    image: ghcr.io/n0rthernl1ghts/unit-php:latest
+    secrets:
+      - db_password # Available as DB_PASSWORD under unit's environment
+```
 
 #### Supervisor
 This image comes bundled with [just-containers/s6-overlay](https://github.com/just-containers/s6-overlay) from build [ghcr.io/n0rthernl1ghts/s6-rootfs](https://github.com/N0rthernL1ghts/s6-rootfs).
