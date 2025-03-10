@@ -11,11 +11,11 @@ main() {
     # This is for legacy support for versions prior to 1.30.0
     if [ -d "/opt/unit" ] && [ -x "/opt/unit/sbin/unitd" ]; then
         echo "Legacy Unit installation detected, starting Unit from /opt/unit"
-        s6-envdir /run/secrets_normalized /opt/unit/sbin/unitd --no-daemon --tmp "/tmp" --state "/var/lib/unit/state" --modules "/opt/unit/modules" --control "unix:${unitSocket}"
+        exec /opt/unit/sbin/unitd --no-daemon --tmp "/tmp" --state "/var/lib/unit/state" --modules "/opt/unit/modules" --control "unix:${unitSocket}"
         return
     fi
 
-    s6-envdir /run/secrets_normalized /usr/local/sbin/unitd --no-daemon --control "unix:${unitSocket}"
+    exec /usr/local/sbin/unitd --no-daemon --control "unix:${unitSocket}"
 }
 
 main
