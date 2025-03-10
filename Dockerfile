@@ -43,6 +43,7 @@ FROM alpine:3.20 AS rootfs
 
 COPY --from=nginx-unit-builder ["/opt/unit/", "/opt/unit/"]
 COPY --from=ghcr.io/n0rthernl1ghts/s6-rootfs:3.1.6.2 ["/", "/rootfs-build"]
+COPY --from=ghcr.io/n0rthernl1ghts/docker-env-secrets:latest ["/", "/rootfs-build/"]
 
 # Rootfs
 COPY ["./rootfs", "/rootfs-build"]
@@ -54,8 +55,6 @@ RUN set -eux \
     && apk add --update --no-cache bash rsync \
     && /tmp/setup-unit.sh
 
-# Install init-docker-secrets service
-COPY --from=ghcr.io/n0rthernl1ghts/docker-env-secrets:latest ["/", "/rootfs-build/"]
 
 
 ################################################
