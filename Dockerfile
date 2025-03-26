@@ -65,7 +65,7 @@ ARG PHP_ALPINE_VERSION
 FROM php:${PHP_VERSION}-zts-alpine${PHP_ALPINE_VERSION}
 
 RUN set -eux \
-    && apk add --update --no-cache bash pcre-dev socat
+    && apk add --update --no-cache bash jq pcre-dev socat
 
 COPY --from=rootfs ["/rootfs-build/", "/"]
 
