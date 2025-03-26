@@ -14,6 +14,11 @@ build_env_json_payload() {
     # Iterate over each file in the directory safely
     while IFS= read -r -d '' secret; do
         var_name=$(basename "${secret}")
+
+        if [ ! -f "/var/run/secrets/${var_name}" ]; then
+            continue # Skip, because we only want to load secrets and not complete s6-overlay environment
+        fi
+
         # Read content with proper newline handling
         content=$(
             cat "${secret}"
@@ -42,10 +47,10 @@ build_env_json_payload() {
 
 # init-unitd-load-secrets main
 main() {
-    local unitSocket="${UNIT_SOCKET:?}"
+    local unit_socket="${UNIT_SOCKET:?}"
 
     # Make sure unitd is available
-    if ! socat -u OPEN:/dev/null "UNIX-CONNECT:${unitSocket}" 2>/dev/null; then
+    if ! socat -u OPEN:/dev/null "UNIX-CONNECT:${unit_socket}" 2>/dev/null; then
         echo "Error: Unit socket is not available"
         return 1
     fi
@@ -60,7 +65,7 @@ main() {
 
     # Send to NGINX Unit API
     curl -X PUT \
-        --unix-socket "${unitSocket}" \
+        --unix-socket "${unit_socket}" \
         -H "Content-Type: application/json" \
         -d "${json_payload}" \
         "http://localhost/config/applications/${app_name}/environment"
