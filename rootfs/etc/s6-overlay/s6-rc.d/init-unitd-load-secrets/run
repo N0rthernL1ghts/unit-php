@@ -15,15 +15,18 @@ build_env_json_payload() {
     while IFS= read -r -d '' secret; do
         var_name=$(basename "${secret}")
         # Read content with proper newline handling
-        content=$(cat "${secret}"; printf X)
-        content="${content%X}"  # Remove trailing X added for newline preservation
+        content=$(
+            cat "${secret}"
+            printf X
+        )
+        content="${content%X}" # Remove trailing X added for newline preservation
 
         # Store as key/value pair for JSON processing
         env_values+=("${var_name}" "${content}")
     done < <(find "${normalized_secrets_path}" -type f -print0)
 
     # Build JSON using jq with null-delimited input
-    json_string=$(printf "%s\0" "${env_values[@]}" | \
+    json_string=$(printf "%s\0" "${env_values[@]}" |
         jq -Rs '
             split("\u0000") |
             [.[] | select(. != "")] |
@@ -57,10 +60,10 @@ main() {
 
     # Send to NGINX Unit API
     curl -X PUT \
-      --unix-socket "${unitSocket}" \
-      -H "Content-Type: application/json" \
-      -d "${json_payload}" \
-      "http://localhost/config/applications/${app_name}/environment"
+        --unix-socket "${unitSocket}" \
+        -H "Content-Type: application/json" \
+        -d "${json_payload}" \
+        "http://localhost/config/applications/${app_name}/environment"
 
     # shellcheck disable=SC2181
     if [ "${?}" -ne 0 ]; then
@@ -70,7 +73,7 @@ main() {
 
     echo "Secrets loaded into NGINX Unit"
 
-    retunr 0
+    return 0
 }
 
 main
