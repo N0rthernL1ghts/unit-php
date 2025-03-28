@@ -47,28 +47,19 @@ build_env_json_payload() {
 
 # init-unitd-load-secrets main
 main() {
-    local unit_socket="${UNIT_SOCKET:?}"
-
-    # Make sure unitd is available
-    if ! socat -u OPEN:/dev/null "UNIX-CONNECT:${unit_socket}" 2>/dev/null; then
-        echo "Error: Unit socket is not available"
-        return 1
-    fi
-
     set -e
 
     # Build JSON payload from secrets
     local json_payload
     json_payload=$(build_env_json_payload "/var/run/s6/container_environment/")
 
-    local app_name="${UNIT_APP_NAME:?}"
+    if [ -z "${json_payload}" ] || [ "${json_payload}" == "{}" ]; then
+        echo "No secrets found to load into NGINX Unit"
+        return 0
+    fi
 
-    # Send to NGINX Unit API
-    curl -X PUT \
-        --unix-socket "${unit_socket}" \
-        -H "Content-Type: application/json" \
-        -d "${json_payload}" \
-        "http://localhost/config/applications/${app_name}/environment"
+    local app_name="${UNIT_APP_NAME:?}"
+    unitctl "${json_payload}" "/config/applications/${app_name}/environment"
 
     # shellcheck disable=SC2181
     if [ "${?}" -ne 0 ]; then

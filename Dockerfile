@@ -50,6 +50,7 @@ COPY ["./rootfs", "/rootfs-build"]
 
 # Prepare unit
 COPY --chmod=0775 ["./src/setup-unit.sh", "/tmp/setup-unit.sh"]
+COPY --chmod=0775 ["./src/unitctl.sh", "/rootfs-build/usr/local/bin/unitctl"]
 
 RUN set -eux \
     && apk add --update --no-cache bash rsync \

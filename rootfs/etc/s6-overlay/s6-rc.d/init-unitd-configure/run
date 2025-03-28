@@ -34,9 +34,10 @@ main() {
     done
 
     set -e
-    # Submit configuration to unit service
+
     echo "Sending configuration to unitd"
-    curl -X PUT --fail --data-binary "@${unitConfigurationFile}" --unix-socket "${unitSocket}" http://localhost/config/
+    unitctl "${unitConfigurationFile}"
+
     echo "Done"
 }
 
