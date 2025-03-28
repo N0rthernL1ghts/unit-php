@@ -61,7 +61,7 @@ main() {
     local json_payload
     json_payload=$(build_env_json_payload "/var/run/s6/container_environment/")
 
-    local app_name="${APP_NAME:-wordpress}"
+    local app_name="${UNIT_APP_NAME:?}"
 
     # Send to NGINX Unit API
     curl -X PUT \
