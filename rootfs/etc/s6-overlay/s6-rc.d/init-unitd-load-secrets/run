@@ -15,10 +15,6 @@ build_env_json_payload() {
     while IFS= read -r -d '' secret; do
         var_name=$(basename "${secret}")
 
-        if [ ! -f "/var/run/secrets/${var_name}" ]; then
-            continue # Skip, because we only want to load secrets and not complete s6-overlay environment
-        fi
-
         # Read content with proper newline handling
         content=$(
             cat "${secret}"
@@ -59,7 +55,7 @@ main() {
     fi
 
     local app_name="${UNIT_APP_NAME:?}"
-    unitctl "${json_payload}" "/config/applications/${app_name}/environment"
+    unitctl "${json_payload}" "config/applications/${app_name}/environment"
 
     # shellcheck disable=SC2181
     if [ "${?}" -ne 0 ]; then
