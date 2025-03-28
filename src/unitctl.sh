@@ -14,18 +14,17 @@ main() {
 
     local json_payload="${1:-}"
     local endpoint="${2:-config}"
-    local request_method="${2:-PUT}"
+    local request_method="${3:-PUT}"
 
     # Prepare curl arguments
     local curl_args=("--fail" "--unix-socket" "${unit_socket}" "-H" "Content-Type: application/json")
 
     # Check if the payload is a file or a string
     if [ -f "${json_payload}" ]; then
-        curl_args+=("--data-binary" "@${json_payload}")
-    else
-        curl_args+=("--data" "${json_payload}")
+        json_payload="@${json_payload}"
     fi
 
+    curl_args+=("--data-binary" "${json_payload}")
     set -x
     curl -X "${request_method}" "${curl_args[@]}" "http://localhost/${endpoint}"
 }
