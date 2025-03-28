@@ -25,7 +25,7 @@ RUN set -eux \
     && apk add --update --no-cache alpine-sdk curl openssl-dev pcre-dev
 
 COPY --from=nginx-unit-downloader ["/tmp/unit", "/build/unit/"]
-ENV DESTDIR /opt/unit/
+ENV DESTDIR=/opt/unit/
 WORKDIR "/build/unit/"
 ARG PHP_VERSION
 
